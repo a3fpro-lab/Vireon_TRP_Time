@@ -10,7 +10,53 @@ T = R \times P
 \]
 Effective time is the product of external structure (“Reality bandwidth” \(R\)) and internal gain (“Perception” \(P\)), governed by a stability constraint (KL-Leash) and tested through preregistered falsifiers.
 
----
+## Mathematical Specification (Canonical)
+
+### Core law
+\[
+T = R \times P
+\]
+Operationally, TRP models time as a local step dilation driven by external structure \(R_t\) and internal gain \(P_t\).
+
+### Variables
+- \(x_t\): observed state / datapoint at step \(t\)
+- \(R_t \ge 0\): Reality bandwidth (measurable structure in \(x_t\))
+- \(P_t \ge 0\): Perception gain (adaptive internal multiplier)
+- \(dt_{\mathrm{eff}}(t)\): effective TRP time-step
+- \(T_{\mathrm{subj}}(N)\): subjective time over \(N\) steps
+
+### Effective time-step
+\[
+dt_{\mathrm{eff}}(t) := \frac{1}{1 + P_t R_t}.
+\]
+\[
+T_{\mathrm{subj}}(N) := \sum_{t=1}^{N} dt_{\mathrm{eff}}(t).
+\]
+
+### Structure index
+\[
+I_{\mathrm{struct}} := D_{\mathrm{KL}}(p_{\mathrm{emp}} \Vert p_0),
+\]
+with preregistered null \(p_0\) (Poisson or Wigner).  
+\(I_{\mathrm{struct}}\) is a measurable distance-from-null (not a proof).
+
+### Stability: KL-Leash
+\[
+D_{\mathrm{KL}}(q_{t+1}\Vert q_t) \le \varepsilon \quad \forall t,
+\]
+with \(\varepsilon\) preregistered.
+
+### Matched-budget win condition
+\[
+S :=
+\frac{\min\{t: I_{\mathrm{struct}}^B(t)\le \delta\}}
+     {\min\{t: I_{\mathrm{struct}}^A(t)\le \delta\}}
+\ge 1+\eta,
+\]
+Null requirement: \(S_{\mathrm{null}}\approx 1\).--
+
+
+-
 
 ## Attribution / Priority
 This framework (“VIREON TRP Time: **T = R × P with KL-Leash**”) was first publicly defined and released by **Inkwon Song Jr.** in **November 2025**.  
