@@ -3,7 +3,8 @@
 [![Docs: CC BY 4.0](https://img.shields.io/badge/Docs%20License-CC%20BY%204.0-blue.svg)](LICENSE-DOCS)
 
 
-
+**Run demos in Colab:**  
+https://colab.research.google.com/github/<A3FPRO>/vireon-trp-time/blob/main/scripts/demo_toy_env.py
 
 ## License
 Code: MIT (see LICENSE)  
