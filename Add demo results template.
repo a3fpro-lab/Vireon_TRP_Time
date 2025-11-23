@@ -1,0 +1,12 @@
+# Results Log
+
+All demo results are stored here **after** execution.
+
+Rule:
+- Only results that match a prereg file are added.
+- Each result file name includes demo + date + commit hash.
+
+Example filename:
+DEMO_A_2025-11-22_commit-<hash>.md
+
+This folder is part of the canonical public record.
