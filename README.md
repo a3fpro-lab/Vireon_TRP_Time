@@ -3,6 +3,14 @@
 [![Docs: CC BY 4.0](https://img.shields.io/badge/Docs%20License-CC%20BY%204.0-blue.svg)](LICENSE-DOCS)
 
 
+## Attribution / Priority
+This framework ("VIREON TRP Time: T = R × P with KL leash") was first publicly
+defined and released by **Inkwon Song Jr.** in November 2025.
+
+If you use or adapt this work, cite the canonical repo and author:
+- Inkwon Song Jr., *VIREON TRP Time Framework (T = R × P)*, 2025.
+
+
 **Run demos in Colab:**  
 https://colab.research.google.com/github/<A3FPRO>/vireon-trp-time/blob/main/scripts/demo_toy_env.py
 
