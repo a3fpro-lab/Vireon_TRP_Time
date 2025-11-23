@@ -11,8 +11,6 @@ If you use or adapt this work, cite the canonical repo and author:
 - Inkwon Song Jr., *VIREON TRP Time Framework (T = R × P)*, 2025.
 
 
-**Run demos in Colab:**  
-https://colab.research.google.com/github/<A3FPRO>/vireon-trp-time/blob/main/scripts/demo_toy_env.py
 
 ## License
 Code: MIT (see LICENSE)  
