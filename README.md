@@ -1,4 +1,4 @@
-![CI](https://github.com/<A3FPRO>/vireon-trp-time/actions/workflows/ci.yml/badge.svg)
+![CI](https://github.com/<A3FPRO_lab>/vireon-trp-time/actions/workflows/ci.yml/badge.svg)
 [![License: MIT](https://img.shields.io/badge/Code%20License-MIT-green.svg)](LICENSE)
 [![Docs: CC BY 4.0](https://img.shields.io/badge/Docs%20License-CC%20BY%204.0-blue.svg)](LICENSE-DOCS)
 
