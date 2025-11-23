@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+title: "VIREON TRP Time Framework (T = R × P)"
+message: "If you use this work, please cite it."
+type: software
+authors:
+  - family-names: Song
+    given-names: Inkwon
+date-released: 2025-11-22
+url: "https://github.com/<A3FPro>/vireon-trp-time"
+license: MIT
+preferred-citation:
+  type: article
+  title: "VIREON TRP Time Framework (T = R × P)"
+  authors:
+    - family-names: Song
+      given-names: Inkwon
+  year: 2025
