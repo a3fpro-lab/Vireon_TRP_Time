@@ -2,20 +2,10 @@
 #
 # Basic sanity checks for Vireon-Q KL-Leash.
 #
-# If PyTorch is not installed in the environment (e.g. CI),
-# we skip these tests at module import time. This keeps the
-# core Vireon_TRP_Time repo light, while still allowing
-# quantum tests to run in richer environments.
+# This version is NumPy-only so the test suite has no
+# heavyweight dependencies.
 
-import pytest
-
-try:
-    import torch  # type: ignore[import]
-except ImportError:
-    pytest.skip(
-        "PyTorch not installed; skipping Vireon-Q KL-Leash tests.",
-        allow_module_level=True,
-    )
+import numpy as np
 
 from vireon_trp.quantum import VireonQLConfig, VireonQLLeash
 
@@ -24,48 +14,48 @@ def test_first_step_passthrough():
     cfg = VireonQLConfig(eps_kl=0.012)
     leash = VireonQLLeash(cfg)
 
-    h_t = torch.zeros(4, 16)  # [batch, dim]
+    h_t = np.zeros((4, 16))  # [batch, dim]
     h_out, stats = leash(h_t, h_prev=None)
 
     assert h_out.shape == h_t.shape
-    assert torch.allclose(h_out, h_t)
+    assert np.allclose(h_out, h_t)
     assert stats["kl"] == 0.0
     assert stats["scale"] == 1.0
 
 
 def test_leash_shape_and_scale_when_kl_exceeds():
-    torch.manual_seed(0)
+    rng = np.random.default_rng(0)
     cfg = VireonQLConfig(eps_kl=0.001)  # very small budget to force damping
     leash = VireonQLLeash(cfg)
 
     batch, dim = 4, 32
-    h_prev = torch.zeros(batch, dim)
+    h_prev = np.zeros((batch, dim))
     # Large step to trigger KL > eps_kl
-    h_t = torch.randn(batch, dim) * 5.0
+    h_t = rng.normal(scale=5.0, size=(batch, dim))
 
     h_out, stats = leash(h_t, h_prev)
 
     assert h_out.shape == h_t.shape
     # Scale should be <= 1 and >= min_scale
     assert cfg.min_scale <= stats["scale"] <= cfg.max_scale
-    # Output should lie between h_prev and h_t
-    diff_prev = (h_out - h_prev).norm()
-    diff_full = (h_t - h_prev).norm()
+    # Output should lie between h_prev and h_t (in norm)
+    diff_prev = np.linalg.norm(h_out - h_prev)
+    diff_full = np.linalg.norm(h_t - h_prev)
     assert diff_prev <= diff_full + 1e-6
 
 
 def test_no_damping_when_kl_small():
-    torch.manual_seed(1)
+    rng = np.random.default_rng(1)
     cfg = VireonQLConfig(eps_kl=10.0)  # very large budget
     leash = VireonQLLeash(cfg)
 
     batch, dim = 4, 32
-    h_prev = torch.zeros(batch, dim)
-    h_t = torch.randn(batch, dim) * 0.1  # small step
+    h_prev = np.zeros((batch, dim))
+    h_t = rng.normal(scale=0.1, size=(batch, dim))  # small step
 
     h_out, stats = leash(h_t, h_prev)
 
     assert h_out.shape == h_t.shape
     # With huge eps_kl, scale should remain 1.0
     assert stats["scale"] == 1.0
-    assert torch.allclose(h_out, h_t, atol=1e-6)
+    assert np.allclose(h_out, h_t, atol=1e-6)
