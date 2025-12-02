@@ -1,0 +1,29 @@
+# Example: using Vireon-Q KL-Leash with a PyTorch transformer
+
+import torch
+import numpy as np
+from vireon_trp.quantum import VireonQLConfig, VireonQLLeash
+
+cfg = VireonQLConfig(eps_kl=0.012)
+leash = VireonQLLeash(cfg)
+
+prev_state_np = None
+
+for t in range(T):
+    # last-layer hidden state from your model
+    # h_t: [batch, dim] torch.Tensor
+    h_t: torch.Tensor = last_layer_hidden(...)
+
+    # Convert to NumPy for the leash
+    h_t_np = h_t.detach().cpu().numpy()
+
+    h_out_np, stats = leash(h_t_np, prev_state_np)
+    prev_state_np = h_out_np.copy()
+
+    # Convert back to torch
+    h_out = torch.from_numpy(h_out_np).to(h_t.device)
+
+    # Use h_out instead of h_t for logits / decoding / RL
+    logits = head(h_out)
+
+    # (Optional) log stats['kl'], stats['scale'] for analysis
