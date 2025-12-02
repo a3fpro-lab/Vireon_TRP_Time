@@ -55,7 +55,20 @@ S :=
 \]
 Null requirement: \(S_{\mathrm{null}}\approx 1\).--
 
+### Quantum Extension – VIREON-Q
 
+In addition to classical TRP Time, this repo ships the first **VIREON-Q** primitive:
+
+- `vireon_trp.quantum.VireonQLConfig`
+- `vireon_trp.quantum.VireonQLLeash`
+
+**Idea:** Treat last-layer hidden states as mixed states in a learned pointer basis, and enforce a per-step drift bound
+
+\[
+D_{\mathrm{KL}}(\rho_{t+1} \,\|\, \rho_t) \le \varepsilon_{\text{Vireon}}.
+\]
+
+Implementation is framework-agnostic and uses NumPy only; callers in PyTorch / JAX / TF can convert tensors to `np.ndarray`, apply the leash, and convert back. This acts as a **Lindblad-style KL-Leash in representation space**, killing reward-hacked trajectories while preserving useful behavior.
 -
 
 ## Attribution / Priority
