@@ -296,6 +296,29 @@ dt_{\mathrm{eff}}(t+1)\le dt_{\mathrm{eff}}(t).
 
 So TRP time can only “speed up” if perception or structure drops.
 
+
+## VIREON-Q KL-Leash: Hidden-State Lindblad Bound
+
+For sequence models, we interpret last-layer hidden states as samples from a mixed state \(\rho_t\) in a learned pointer basis. The VIREON-Q KL-Leash constrains discrete-time drift via
+
+\[
+D_{\mathrm{KL}}(\rho_{t+1} \,\|\, \rho_t) \;\lesssim\; \varepsilon_{\text{Vireon}},
+\]
+
+implemented via a Gaussian proxy in the hidden manifold. In code:
+
+\[
+\mathrm{TRP\text{-}drift}(t) \;\propto\; D_{\mathrm{KL}}(\mathcal{N}(\mu_{t+1}, \Sigma)\,\|\,\mathcal{N}(\mu_t, \Sigma)).
+\]
+
+If this exceeds a preregistered budget \(\varepsilon_{\text{Vireon}}\), we damp the step
+
+\[
+h_{t+1}^{\text{leashed}} = h_t + s (h_{t+1} - h_t),
+\quad s \in (0,1],
+\]
+
+shrinking \(\|\Delta \mu\|\) and enforcing a Lindblad-style bound in representation space. This is the first operational VIREON-Q primitive layered on top of the classical T = R × P law.
 ---
 
 End.
